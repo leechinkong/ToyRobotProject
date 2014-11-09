@@ -88,5 +88,6 @@ RSpec.configure do |config|
 =end
 
 require 'toy_robot'
+require 'toy_robot/robot_controller'
 
 end
