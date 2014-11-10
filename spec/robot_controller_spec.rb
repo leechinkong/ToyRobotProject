@@ -29,6 +29,7 @@ describe RobotController do
       expect(@controller.processCommand("MOVE")).to eq(false)
       expect(@controller.processCommand("LEFT")).to eq(false)
       expect(@controller.processCommand("RIGHT")).to eq(false)
+      expect(@controller.processCommand("REPORT")).to eq(false)
     end
 
     it "when command is an invalid first command" do
@@ -58,6 +59,7 @@ describe RobotController do
       expect(@controller.processCommand("MOVE")).to eq(true)
       expect(@controller.processCommand("LEFT")).to eq(true)
       expect(@controller.processCommand("RIGHT")).to eq(true)
+      expect(@controller.processCommand("REPORT")).to eq(true)
     end
 
     it "when command is mixed or lowercases" do
@@ -68,6 +70,7 @@ describe RobotController do
       expect(@controller.processCommand("mOvE")).to eq(true)
       expect(@controller.processCommand("left")).to eq(true)
       expect(@controller.processCommand("RIGHT")).to eq(true)
+      expect(@controller.processCommand("report")).to eq(true)
     end
 
     it "when PLACE command has invalid x and y" do
