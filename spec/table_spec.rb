@@ -16,8 +16,14 @@ describe Table do
       expect(table.width).to eq(10)
       expect(table.height).to eq(8)
     end
+    it "when width and height is not numeric" do
+      expect(Table.new("","")).to raise_error(ArgumentError)
+    end
+    it "when width and height is less than 1" do
+      expect(Table.new(0,0)).to raise_error(ArgumentError)
+      expect(Table.new(-5,-5)).to raise_error(ArgumentError)
+    end
   end
-
   
    # Test validateXY
   describe "#validate" do
