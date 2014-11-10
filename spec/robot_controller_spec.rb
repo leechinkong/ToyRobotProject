@@ -192,6 +192,12 @@ describe RobotController do
       # Test when subsequent MOVE command moves the robot 1 unit towards WEST
       expect(@controller.processCommand("MOVE")).to eq(true)
     end
-  end
 
+    it "when REPORT is valid" do
+      # Place the robot at the NORTH-EAST edge of the table
+      expect(@controller.processCommand("PLACE 0,0,#{Direction::N}")).to eq(true)
+      # Test when subsequent REPORT command resulted in RobotView.displayOutput to be called
+      @robot.view.should_receive(:displayOutput).with(0, 0, Direction::N)
+    end
+  end
 end
