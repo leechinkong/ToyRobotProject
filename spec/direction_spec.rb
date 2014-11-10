@@ -3,6 +3,8 @@ require 'spec_helper'
 # Tests for Direction
 describe Direction do
 
+  UNKNOWN = "UNKNOWN"
+
   # Test turnLeft
   describe "#turnLeft" do
     it "when facing NORTH" do
@@ -16,6 +18,9 @@ describe Direction do
     end
     it "when facing WEST" do
       expect(Direction.turnLeft(Direction::W)).to eq(Direction::S)
+    end
+    it "when current direction is unknown" do
+      expect(Direction.turnLeft(UNKNOWN)).to eq(UNKNOWN)
     end
   end
 
@@ -33,6 +38,9 @@ describe Direction do
     it "when facing WEST" do
       expect(Direction.turnRight(Direction::W)).to eq(Direction::N)
     end
+    it "when current direction is unknown" do
+      expect(Direction.turnRight(UNKNOWN)).to eq(UNKNOWN)
+    end
   end
 
   # Test move
@@ -48,6 +56,9 @@ describe Direction do
     end
     it "when facing WEST" do
       expect(Direction.move(0,0,Direction::W)).to eq([-1,0])
+    end
+    it "when current direction is unknown" do
+      expect(Direction.move(0,0,UNKNOWN)).to eq([0,0])
     end
   end
 
