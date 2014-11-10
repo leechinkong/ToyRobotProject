@@ -17,9 +17,9 @@ describe RobotView do
 
   # Test displayOutput
   describe "#displayOutput" do
-    it "when x, y and face is supplied" do
-      expect{@view.displayOutput(0, 0, "unknown")}.to output("0,0,unknown").to_stdout
-      expect{@view.displayOutput(2, 3, Direction::N)}.to output("2,3,NORTH").to_stdout
+    it "when x, y and face are supplied" do
+      expect{@view.displayOutput(0, 0, "unknown")}.to output(/^0,0,unknown$/).to_stdout
+      expect{@view.displayOutput(2, 3, Direction::N)}.to output(/^2,3,NORTH$/).to_stdout
     end
   end
 
