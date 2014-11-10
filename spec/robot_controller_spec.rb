@@ -5,7 +5,7 @@ describe RobotController do
 
   # Create a new instance for each test
   before :each do
-    @controller = RobotController.new
+    @controller = RobotController.new(5, 5)
   end
 
   # Test initialize

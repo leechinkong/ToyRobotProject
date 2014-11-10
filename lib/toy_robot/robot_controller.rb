@@ -3,13 +3,18 @@
 
 require 'toy_robot/direction'
 require 'toy_robot/model/robot'
+require 'toy_robot/model/table'
 
 class RobotController
   include Direction
 
-  # Default table width and height (in units)
-  WIDTH = 5
-  HEIGHT = 5
+  # Initialize table controller.
+  # = Parameters
+  # - +width+:: the width of the table
+  # - +height+:: the height of the table
+  def initialize(width, height)
+    @table = Table.new(width, height)
+  end
 
   # Process command.
   # = Parameters
@@ -30,7 +35,7 @@ class RobotController
         y = placement[1].to_i
 
         # Validate x and y, make sure x and y is within range
-        if validateXY(x, y)
+        if @table.validate(x, y)
           # Get face, expect only one value to be returned
           face = command.scan(/#{Direction::N}|#{Direction::E}|#{Direction::S}|#{Direction::W}$/)[0]
           # Create a Robot instance
@@ -50,7 +55,7 @@ class RobotController
           elsif command == "MOVE"
             x, y = Direction.move(@robot.x, @robot.y, @robot.face)
             # Make sure the robot does not fall off the table
-            return validateXY(x, y)
+            return @table.validate(x, y)
           end
         end
       end
@@ -60,13 +65,4 @@ class RobotController
     return false
   end
 
-  # Validate position X and Y
-  # = Parameters
-  # - +x+:: the position X
-  # - +y+:: the position Y
-  # = Returns
-  # - true when x and is valid
-  def validateXY(x, y)
-    return x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT
-  end
 end
