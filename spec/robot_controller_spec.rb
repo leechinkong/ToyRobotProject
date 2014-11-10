@@ -197,7 +197,10 @@ describe RobotController do
       # Place the robot at the NORTH-EAST edge of the table
       expect(@controller.processCommand("PLACE 0,0,#{Direction::N}")).to eq(true)
       # Test when subsequent REPORT command resulted in RobotView.displayOutput to be called
-      @robot.view.should_receive(:displayOutput).with(0, 0, Direction::N)
+      view = RobotView.new
+      expect(view).to receive(:displayOutput).with(0, 0, Direction::N)
+      @controller.view = view
+      expect(@controller.processCommand("REPORT")).to eq(true)
     end
   end
 end

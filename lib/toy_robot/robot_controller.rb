@@ -4,9 +4,12 @@
 require 'toy_robot/direction'
 require 'toy_robot/model/robot'
 require 'toy_robot/model/table'
+require 'toy_robot/robot_view'
 
 class RobotController
   include Direction
+
+  attr_accessor:view
 
   # Initialize table controller.
   # = Parameters
@@ -23,7 +26,7 @@ class RobotController
   # - true when command is processed successfully
   def processCommand(command)
     # Check if the command is nil
-    if command != nil
+    unless command.nil?
       # convert command to all uppercase
       command = command.upcase
 
@@ -38,8 +41,14 @@ class RobotController
         if @table.validate(x, y)
           # Get face, expect only one value to be returned
           face = command.scan(/#{Direction::N}|#{Direction::E}|#{Direction::S}|#{Direction::W}$/)[0]
-          # Create a Robot instance
-          @robot = Robot.new(x, y, face)
+          # Create a Robot instance, if not already created
+          if @robot.nil?
+            @robot = Robot.new(x, y, face)
+          else
+            @robot.x = x
+            @robot.y = y
+            @robot.face = face
+          end
           return true
         end
       # Check if the robot is placed
@@ -57,6 +66,11 @@ class RobotController
             # Make sure the robot does not fall off the table
             return @table.validate(x, y)
           elsif command == "REPORT"
+            # Create RobotView on demand
+            if @view.nil?
+              @view = RobotView.new
+            end
+            @view.displayOutput(@robot.x, @robot.y, @robot.face)
             return true
           end
         end
