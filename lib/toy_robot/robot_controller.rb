@@ -45,7 +45,7 @@ class RobotController
       # Check if the robot is placed
       elsif @robot != nil
         # Check if command is a valid subsequent command
-        if command =~ /^MOVE|LEFT|RIGHT$/
+        if command =~ /^MOVE|LEFT|RIGHT|REPORT$/
           if command == "LEFT"
             @robot.face = Direction.turnLeft(@robot.face)
             return true
@@ -56,6 +56,8 @@ class RobotController
             x, y = Direction.move(@robot.x, @robot.y, @robot.face)
             # Make sure the robot does not fall off the table
             return @table.validate(x, y)
+          elsif command == "REPORT"
+            return true
           end
         end
       end
