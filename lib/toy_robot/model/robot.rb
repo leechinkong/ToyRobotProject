@@ -9,8 +9,14 @@ class Robot
   # The direction the robot is facing
   attr_accessor:face
 
-  # Initialize the robot with x and y position and direction facing.
+  # Initialize the robot with x and y position and direction the robos is facing.
+  # = Parameters
+  # - +x+:: the x position on the table
+  # - +y+:: the y position on the table
+  # - +face+:: the direction the robot is facing
   def initialize(x, y, face)
+    raise ArgumentError, 'Robot x position is invalid.' unless x.is_a?(Numeric)
+    raise ArgumentError, 'Robot y position is invalid.' unless y.is_a?(Numeric)
     @x = x
     @y = y
     @face = face
