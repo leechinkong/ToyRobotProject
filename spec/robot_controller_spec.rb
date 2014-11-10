@@ -190,34 +190,5 @@ describe RobotController do
       expect(@controller.processCommand("MOVE")).to eq(true)
     end
   end
-  
-    # Test validateXY
-  describe "#validateXY" do
-    it "x is invalid" do
-      expect(@controller.validateXY(-1,0)).to eq(false)
-      expect(@controller.validateXY(5,0)).to eq(false)
-      expect(@controller.validateXY(10,0)).to eq(false)
-    end
 
-    it "y is invalid" do
-      expect(@controller.validateXY(0,-1)).to eq(false)
-      expect(@controller.validateXY(0,5)).to eq(false)
-      expect(@controller.validateXY(0,10)).to eq(false)
-    end
-
-    it "x and y is invalid" do
-      expect(@controller.validateXY(-1,-1)).to eq(false)
-      expect(@controller.validateXY(5,5)).to eq(false)
-      expect(@controller.validateXY(10,10)).to eq(false)
-    end
-    
-    it "x and y is valid" do
-      expect(@controller.validateXY(0,0)).to eq(true)
-      expect(@controller.validateXY(0,4)).to eq(true)
-      expect(@controller.validateXY(1,2)).to eq(true)
-      expect(@controller.validateXY(3,2)).to eq(true)
-      expect(@controller.validateXY(4,0)).to eq(true)
-      expect(@controller.validateXY(4,4)).to eq(true)
-    end
-  end
 end
