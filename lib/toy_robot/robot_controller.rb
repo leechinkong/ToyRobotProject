@@ -1,7 +1,11 @@
 # Robot controller class.
 # To process command, control robot movement and display result.
 
+require 'toy_robot/direction'
+require 'toy_robot/model/robot'
+
 class RobotController
+  include Direction
 
   # Default table width and height (in units)
   WIDTH = 5
@@ -19,23 +23,35 @@ class RobotController
       command = command.upcase
 
       # Check if command is a valid PLACE
-      if command =~ /^PLACE\s\d+,\d+,NORTH|EAST|SOUTH|WEST$/
+      if command =~ /^PLACE\s\d+,\d+,#{Direction::N}|#{Direction::E}|#{Direction::S}|#{Direction::W}$/
         # Get x and y 
         placement = command.scan(/\d+/)
         x = placement[0].to_i
         y = placement[1].to_i
 
         # Validate x and y, make sure x and y is within range
-        if x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT
-          # Remember that the robot is placed
-          @placed = true
+        if validateXY(x, y)
+          # Get face, expect only one value to be returned
+          face = command.scan(/#{Direction::N}|#{Direction::E}|#{Direction::S}|#{Direction::W}$/)[0]
+          # Create a Robot instance
+          @robot = Robot.new(x, y, face)
           return true
         end
       # Check if the robot is placed
-      elsif @placed == true
+      elsif @robot != nil
         # Check if command is a valid subsequent command
         if command =~ /^MOVE|LEFT|RIGHT$/
-          return true
+          if command == "LEFT"
+            @robot.face = Direction.turnLeft(@robot.face)
+            return true
+          elsif command == "RIGHT"
+            @robot.face = Direction.turnRight(@robot.face)
+            return true
+          elsif command == "MOVE"
+            x, y = Direction.move(@robot.x, @robot.y, @robot.face)
+            # Make sure the robot does not fall off the table
+            return validateXY(x, y)
+          end
         end
       end
     end
@@ -44,4 +60,13 @@ class RobotController
     return false
   end
 
+  # Validate position X and Y
+  # = Parameters
+  # - +x+:: the position X
+  # - +y+:: the position Y
+  # = Returns
+  # - true when x and is valid
+  def validateXY(x, y)
+    return x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT
+  end
 end
