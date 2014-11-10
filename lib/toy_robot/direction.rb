@@ -25,6 +25,8 @@ module Direction
       newDir = E
     elsif dir == W
       newDir = S
+    else
+      newDir = dir
     end
     return newDir
   end
@@ -43,6 +45,8 @@ module Direction
       newDir = W
     elsif dir == W
       newDir = N
+    else
+      newDir = dir
     end
     return newDir
   end
