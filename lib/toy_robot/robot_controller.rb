@@ -65,12 +65,12 @@ class RobotController
           elsif command == "MOVE"
             x, y = Direction.move(@robot.x, @robot.y, @robot.face)
             # Make sure the robot does not fall off the table
-            return @table.validate(x, y)
-          elsif command == "REPORT"
-            # Create RobotView on demand
-            if @view.nil?
-              @view = RobotView.new
+            if @table.validate(x, y)
+              @robot.x = x
+              @robot.y = y
+              return true
             end
+          elsif command == "REPORT"
             @view.displayOutput(@robot.x, @robot.y, @robot.face)
             return true
           end
@@ -88,12 +88,18 @@ class RobotController
   def readCommands(file)
     unless file.nil?
       # Read from file
-    else
-      # Create RobotView on demand
-      if @view.nil?
-        @view = RobotView.new
+      begin
+        file = File.new(file, "r")
+        while (line = file.gets)
+          unless line.nil?
+            processCommand(line.chomp)
+          end
+        end
+        file.close
+      rescue => error
+        raise IOError, "Failed to read input file:  #{error}"
       end
-
+    else
       # Read from stdin until QUIT is read
       quit = false
       until quit do

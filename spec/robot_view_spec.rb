@@ -34,11 +34,11 @@ describe RobotView do
   # Expect captureInput to return input as in.
   describe "#captureInput" do
     it "when input is empty" do
-      @view.stub(:gets){""}
+      expect(@view).to receive(:gets).and_return("")
       expect(@view.captureInput()).to eq("")
     end
     it "when input is a string" do
-      @view.stub(:gets){"testing"}
+      expect(@view).to receive(:gets).and_return("testing")
       expect(@view.captureInput()).to eq("testing")
     end
   end

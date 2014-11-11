@@ -230,6 +230,33 @@ describe RobotController do
       expect(@controller).to receive(:processCommand).with(report).exactly(1).times
       @controller.readCommands(nil)
     end
+    it "when PLACE, LEFT, RIGHT, MOVE, REPORT are called" do
+      # Commands to write to stdin
+      place = "PLACE 0,0,#{Direction::N}"
+      left = "LEFT"
+      right = "RIGHT"
+      move = "MOVE"
+      report = "REPORT"
+      # Expect RobotView.captureInput to be called to read command from stdin
+      mockView = RobotView.new
+      expect(mockView).to receive(:captureInput).and_return(place, left, right, move, report, "QUIT")
+      # Expect RobotController.processCommand to be called to process command
+      @controller.view = mockView
+      expect(@controller).to receive(:processCommand).with(place).exactly(1).times
+      expect(@controller).to receive(:processCommand).with(left).exactly(1).times
+      expect(@controller).to receive(:processCommand).with(right).exactly(1).times
+      expect(@controller).to receive(:processCommand).with(move).exactly(1).times
+      expect(@controller).to receive(:processCommand).with(report).exactly(1).times
+      @controller.readCommands(nil)
+    end
+    it "when file is not found" do
+      expect{@controller.readCommands("unknown file")}.to raise_error(IOError)
+    end
+    it "when file is valid" do
+      @controller.readCommands(File.join(File.dirname(__FILE__), "/data/test_data.txt"))
+      expect(@controller.view).to receive(:displayOutput).with(1, 1, Direction::E)
+      expect(@controller.processCommand("REPORT")).to eq(true)
+    end
   end
 
 end
