@@ -21,22 +21,11 @@ describe RobotController do
       expect(@controller.processCommand(nil)).to eq(false)
     end
 
-    it "when command is unknown" do
-      expect(@controller.processCommand("UNKNOWN")).to eq(false)
-    end
-
     it "when command is not the expected first command" do
       expect(@controller.processCommand("MOVE")).to eq(false)
       expect(@controller.processCommand("LEFT")).to eq(false)
       expect(@controller.processCommand("RIGHT")).to eq(false)
       expect(@controller.processCommand("REPORT")).to eq(false)
-    end
-
-    it "when command is an invalid first command" do
-      expect(@controller.processCommand("PLACE")).to eq(false)
-      expect(@controller.processCommand("PLACE 0,0")).to eq(false)
-      expect(@controller.processCommand("PLACE #{Direction::N}")).to eq(false)  
-      expect(@controller.processCommand("PLACE 0,0,UNKNOWN")).to eq(false)         
     end
 
     it "when command is a valid first command" do

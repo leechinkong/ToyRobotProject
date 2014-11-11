@@ -93,5 +93,5 @@ require 'toy_robot/direction'
 require 'toy_robot/model/robot'
 require 'toy_robot/model/table'
 require 'toy_robot/robot_view'
-
+require 'toy_robot/command'
 end
