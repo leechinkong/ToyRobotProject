@@ -9,7 +9,16 @@ class RobotView
   # - +y+:: the y value
   # - +face+:: the face value
   def displayOutput(x, y, face)
+    raise ArgumentError, 'Robot x position is not provided.' unless (x != nil)
+    raise ArgumentError, 'Robot y position is not provided.' unless (y != nil)
+    raise ArgumentError, 'Robot face is not provided.' unless (face != nil)
     puts "#{x},#{y},#{face}"
   end
 
+  # Capture input in stdin.
+  # = Returns
+  # - Return a line captured from stdin to caller.
+  def captureInput
+    return gets.chomp
+  end
 end

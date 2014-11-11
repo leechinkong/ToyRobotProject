@@ -197,10 +197,39 @@ describe RobotController do
       # Place the robot at the NORTH-EAST edge of the table
       expect(@controller.processCommand("PLACE 0,0,#{Direction::N}")).to eq(true)
       # Test when subsequent REPORT command resulted in RobotView.displayOutput to be called
-      view = RobotView.new
-      expect(view).to receive(:displayOutput).with(0, 0, Direction::N)
-      @controller.view = view
+      expect(@controller.view).to receive(:displayOutput).with(0, 0, Direction::N)
       expect(@controller.processCommand("REPORT")).to eq(true)
     end
   end
+
+    # Test readCommands
+  describe "#readCommands" do
+    it "when file is nil" do
+      # Command to write to stdin
+      command = "PLACE 0,0,#{Direction::N}"
+      # Expect RobotView.captureInput to be called to read command from stdin
+      mockView = RobotView.new
+      expect(mockView).to receive(:captureInput).and_return(command, "QUIT")
+      # Expect RobotController.processCommand to be called to process command
+      @controller.view = mockView
+      expect(@controller).to receive(:processCommand).with(command).exactly(1).times
+      @controller.readCommands(nil)
+    end
+    it "when PLACE, MOVE, REPORT are called" do
+      # Commands to write to stdin
+      place = "PLACE 0,0,#{Direction::N}"
+      move = "MOVE"
+      report = "REPORT"
+      # Expect RobotView.captureInput to be called to read command from stdin
+      mockView = RobotView.new
+      expect(mockView).to receive(:captureInput).and_return(place, move, report, "QUIT")
+      # Expect RobotController.processCommand to be called to process command
+      @controller.view = mockView
+      expect(@controller).to receive(:processCommand).with(place).exactly(1).times
+      expect(@controller).to receive(:processCommand).with(move).exactly(1).times
+      expect(@controller).to receive(:processCommand).with(report).exactly(1).times
+      @controller.readCommands(nil)
+    end
+  end
+
 end

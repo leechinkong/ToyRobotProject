@@ -17,6 +17,7 @@ class RobotController
   # - +height+:: the height of the table
   def initialize(width, height)
     @table = Table.new(width, height)
+    @view = RobotView.new
   end
 
   # Process command.
@@ -81,4 +82,28 @@ class RobotController
     return false
   end
 
+  # Read commands.
+  # = Parameters
+  # - +file+:: the input file containing commands to process
+  def readCommands(file)
+    unless file.nil?
+      # Read from file
+    else
+      # Create RobotView on demand
+      if @view.nil?
+        @view = RobotView.new
+      end
+
+      # Read from stdin until QUIT is read
+      quit = false
+      until quit do
+        input = @view.captureInput
+        # Check if input is QUIT
+        quit = input =~ /^QUIT$/i
+        unless quit
+          processCommand(input)
+        end
+      end
+    end
+  end
 end
