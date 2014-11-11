@@ -254,8 +254,28 @@ describe RobotController do
     end
     it "when file is valid" do
       @controller.readCommands(File.join(File.dirname(__FILE__), "/data/test_data.txt"))
-      expect(@controller.view).to receive(:displayOutput).with(1, 1, Direction::E)
+      expect(@controller.view).to receive(:displayOutput).with(2, 2, Direction::S)
       expect(@controller.processCommand("REPORT")).to eq(true)
+    end
+    it "verify results against result file" do
+      # read results file
+      begin
+        file = File.new(File.join(File.dirname(__FILE__), "/data/test_result.txt"), "r")
+        while (line = file.gets)
+          unless line.nil?
+            if line =~ /^REPORT=/i
+              # Check if REPORT is as expected
+              result = line.scan(/=.*$/)[0].tr("=", "")
+              result = result.split(",")
+              expect(@controller.view).to receive(:displayOutput).with(result[0].to_i, result[1].to_i, result[2])
+            end
+          end
+        end
+        file.close
+      rescue => error
+        raise IOError, "Failed to read input file:  #{error}"
+      end
+      @controller.readCommands(File.join(File.dirname(__FILE__), "/data/test_data.txt"))
     end
   end
 
