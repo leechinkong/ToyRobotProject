@@ -1,11 +1,12 @@
+#!/usr/bin/env ruby
 # Robot controller class.
 # To process command, control robot movement and display result.
 
-require 'toy_robot/direction'
-require 'toy_robot/model/robot'
-require 'toy_robot/model/table'
-require 'toy_robot/robot_view'
-require 'toy_robot/command'
+require_relative 'direction'
+require_relative 'model/robot'
+require_relative 'model/table'
+require_relative 'robot_view'
+require_relative 'command'
 
 class RobotController
   include Direction, Command
@@ -83,10 +84,10 @@ class RobotController
     return false
   end
 
-  # Read commands.
+  # Read commands from file.
   # = Parameters
   # - +file+:: the input file containing commands to process
-  def readCommands(file)
+  def readFromFile(file)
     unless file.nil?
       # Read from file
       begin
@@ -98,18 +99,21 @@ class RobotController
         end
         file.close
       rescue => error
-        raise IOError, "Failed to read input file:  #{error}"
+        raise IOError, "Failed to read input file: #{error}"
       end
-    else
-      # Read from stdin until QUIT is read
-      quit = false
-      until quit do
-        input = @view.captureInput
-        # Check if input is QUIT
-        quit = input =~ /^QUIT$/i
-        unless quit
-          processCommand(input)
-        end
+    end
+  end
+
+  # Read commands from stdin.
+  def readFromStdin
+    # Read from stdin until QUIT is read
+    quit = false
+    until quit do
+      input = @view.captureInput
+      # Check if input is QUIT
+      quit = input =~ /^QUIT$/i
+      unless quit
+        processCommand(input)
       end
     end
   end

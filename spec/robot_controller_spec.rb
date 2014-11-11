@@ -191,19 +191,8 @@ describe RobotController do
     end
   end
 
-    # Test readCommands
-  describe "#readCommands" do
-    it "when file is nil" do
-      # Command to write to stdin
-      command = "#{Command::P} 0,0,#{Direction::N}"
-      # Expect RobotView.captureInput to be called to read command from stdin
-      mockView = RobotView.new
-      expect(mockView).to receive(:captureInput).and_return(command, "QUIT")
-      # Expect RobotController.processCommand to be called to process command
-      @controller.view = mockView
-      expect(@controller).to receive(:processCommand).with(command).exactly(1).times
-      @controller.readCommands(nil)
-    end
+    # Test readFromStdin
+  describe "#readFromStdin" do
     it "when PLACE, MOVE, REPORT are called" do
       # Commands to write to stdin
       place = "#{Command::P} 0,0,#{Direction::N}"
@@ -217,7 +206,7 @@ describe RobotController do
       expect(@controller).to receive(:processCommand).with(place).exactly(1).times
       expect(@controller).to receive(:processCommand).with(move).exactly(1).times
       expect(@controller).to receive(:processCommand).with(report).exactly(1).times
-      @controller.readCommands(nil)
+      @controller.readFromStdin
     end
     it "when PLACE, LEFT, RIGHT, MOVE, REPORT are called" do
       # Commands to write to stdin
@@ -236,13 +225,22 @@ describe RobotController do
       expect(@controller).to receive(:processCommand).with(right).exactly(1).times
       expect(@controller).to receive(:processCommand).with(move).exactly(1).times
       expect(@controller).to receive(:processCommand).with(report).exactly(1).times
-      @controller.readCommands(nil)
+      @controller.readFromStdin
+    end
+  end
+
+    # Test readFromFile
+  describe "#readFromFile" do
+    it "when file is nil" do
+      # Do not expect RobotController.processCommand to be called
+      expect(@controller).not_to receive(:processCommand)
+      @controller.readFromFile(nil)
     end
     it "when file is not found" do
-      expect{@controller.readCommands("unknown file")}.to raise_error(IOError)
+      expect{@controller.readFromFile("unknown file")}.to raise_error(IOError)
     end
     it "when file is valid" do
-      @controller.readCommands(File.join(File.dirname(__FILE__), "/data/test_data.txt"))
+      @controller.readFromFile(File.join(File.dirname(__FILE__), "/data/test_data.txt"))
       expect(@controller.view).to receive(:displayOutput).with(2, 2, Direction::S)
       expect(@controller.processCommand("#{Command::RP}")).to eq(true)
     end
@@ -264,7 +262,7 @@ describe RobotController do
       rescue => error
         raise IOError, "Failed to read input file:  #{error}"
       end
-      @controller.readCommands(File.join(File.dirname(__FILE__), "/data/test_data.txt"))
+      @controller.readFromFile(File.join(File.dirname(__FILE__), "/data/test_data.txt"))
     end
   end
 
