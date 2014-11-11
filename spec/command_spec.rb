@@ -9,13 +9,13 @@ describe Command do
       expect(Command.validatePlace(nil)).to eq(false)
     end
     it "when command is an invalid place command" do
-      expect(Command.validatePlace("PLACE")).to eq(false)
-      expect(Command.validatePlace("PLACE 0,0")).to eq(false)
-      expect(Command.validatePlace("PLACE #{Direction::N}")).to eq(false)  
-      expect(Command.validatePlace("PLACE 0,0,UNKNOWN")).to eq(false)         
+      expect(Command.validatePlace("#{Command::P}")).to eq(false)
+      expect(Command.validatePlace("#{Command::P} 0,0")).to eq(false)
+      expect(Command.validatePlace("#{Command::P} #{Direction::N}")).to eq(false)  
+      expect(Command.validatePlace("#{Command::P} 0,0,UNKNOWN")).to eq(false)         
     end
     it "when command is a valid place command" do
-      expect(Command.validatePlace("PLACE 0,0,#{Direction::N}")).to eq(true)
+      expect(Command.validatePlace("#{Command::P} 0,0,#{Direction::N}")).to eq(true)
     end
   end
 
@@ -28,10 +28,10 @@ describe Command do
       expect(Command.validate("UNKNOWN")).to eq(false)
     end
     it "when command is a valid command" do
-      expect(Command.validate("MOVE")).to eq(true)
-      expect(Command.validate("LEFT")).to eq(true)
-      expect(Command.validate("RIGHT")).to eq(true)
-      expect(Command.validate("REPORT")).to eq(true)
+      expect(Command.validate("#{Command::M}")).to eq(true)
+      expect(Command.validate("#{Command::L}")).to eq(true)
+      expect(Command.validate("#{Command::R}")).to eq(true)
+      expect(Command.validate("#{Command::RP}")).to eq(true)
     end
   end
 

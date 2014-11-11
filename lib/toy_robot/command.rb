@@ -7,17 +7,26 @@ module Command
   M = "MOVE"
   L = "LEFT"
   R = "RIGHT"
+  RP = "REPORT"
 
-  # Validate PLACE command.
+  # Validate PLACE command, case sensitive.
   # = Parameters
   # - +command+:: the command to validate
-  def validatePlace(command)
+  def Command.validatePlace(command)
+    if command =~ /^#{Command::P}\s\d+,\d+,#{Direction::N}|#{Direction::E}|#{Direction::S}|#{Direction::W}$/
+      return true
+    end
+    return false
   end
 
-  # Validate other command.
+  # Validate other command, case sensitive.
   # = Parameters
   # - +command+:: the command to validate
-  def validate(command)
+  def Command.validate(command)
+    if command =~ /^#{Command::M}|#{Command::L}|#{Command::R}|#{Command::RP}$/
+      return true
+    end
+    return false
   end
-  
+
 end

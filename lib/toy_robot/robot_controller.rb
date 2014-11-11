@@ -5,9 +5,10 @@ require 'toy_robot/direction'
 require 'toy_robot/model/robot'
 require 'toy_robot/model/table'
 require 'toy_robot/robot_view'
+require 'toy_robot/command'
 
 class RobotController
-  include Direction
+  include Direction, Command
 
   attr_accessor:view
 
@@ -32,7 +33,7 @@ class RobotController
       command = command.upcase
 
       # Check if command is a valid PLACE
-      if command =~ /^PLACE\s\d+,\d+,#{Direction::N}|#{Direction::E}|#{Direction::S}|#{Direction::W}$/
+      if Command.validatePlace(command)
         # Get x and y 
         placement = command.scan(/\d+/)
         x = placement[0].to_i
@@ -55,14 +56,14 @@ class RobotController
       # Check if the robot is placed
       elsif @robot != nil
         # Check if command is a valid subsequent command
-        if command =~ /^MOVE|LEFT|RIGHT|REPORT$/
-          if command == "LEFT"
+        if Command.validate(command)
+          if command == "#{Command::L}"
             @robot.face = Direction.turnLeft(@robot.face)
             return true
-          elsif command == "RIGHT"
+          elsif command == "#{Command::R}"
             @robot.face = Direction.turnRight(@robot.face)
             return true
-          elsif command == "MOVE"
+          elsif command == "#{Command::M}"
             x, y = Direction.move(@robot.x, @robot.y, @robot.face)
             # Make sure the robot does not fall off the table
             if @table.validate(x, y)
@@ -70,7 +71,7 @@ class RobotController
               @robot.y = y
               return true
             end
-          elsif command == "REPORT"
+          elsif command == "#{Command::RP}"
             @view.displayOutput(@robot.x, @robot.y, @robot.face)
             return true
           end
