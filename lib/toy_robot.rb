@@ -16,7 +16,7 @@ module ToyRobot
       unless file.nil?
         controller.readFromFile(file)
       else
-        puts "Enter command to control your toy robot (enter 'QUIT' to stop):"
+        puts "Enter commands to control your toy robot (enter 'QUIT' to stop):"
         controller.readFromStdin
       end
     rescue => error

@@ -12,7 +12,9 @@ class RobotView
     raise ArgumentError, 'Robot x position is not provided.' unless (x != nil)
     raise ArgumentError, 'Robot y position is not provided.' unless (y != nil)
     raise ArgumentError, 'Robot face is not provided.' unless (face != nil)
-    puts "#{x},#{y},#{face}"
+
+    # Display output as green
+    puts "\e[#{32}m#{x},#{y},#{face}\e[0m"
   end
 
   # Capture input in stdin.
