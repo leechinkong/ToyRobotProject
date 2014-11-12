@@ -14,18 +14,17 @@ Description
 - The application can read in commands of the following form, from a file, 
   or from standard input:
 
-    **PLACE X,Y,F**
-    **MOVE**
-    **LEFT**
-    **RIGHT**
-    **REPORT**
+  - **PLACE X,Y,F**
+  - **MOVE**
+  - **LEFT**
+  - **RIGHT**
+  - **REPORT**
+  - **QUIT**
 
-    **QUIT**
-
-- **PLACE** will put the toy robot on the table in position X,Y and facing NORTH,
-  SOUTH, EAST or WEST. The first valid command to the robot is a **PLACE** command, after that, any
-  sequence of commands may be issued, in any order, including another **PLACE**
-  command. The application should discard all commands in the sequence until
+- **PLACE** will put the toy robot on the table in position X,Y and facing NORTH, 
+  SOUTH, EAST or WEST. The first valid command to the robot is a **PLACE** command, 
+  after that, any sequence of commands may be issued, in any order, including another 
+  **PLACE** command. The application should discard all commands in the sequence until
   a valid **PLACE** command has been executed. The position (0,0) can be considered 
   to be the SOUTH WEST most corner.
 - **MOVE** will move the toy robot one unit forward in the direction it is
@@ -34,14 +33,11 @@ Description
   without changing the position of the robot.
 - **REPORT** will announce the X,Y and F of the robot. This can be in any form,
   but standard output is sufficient.
-- **QUIT** command can be used to terminate the application gracefully when input is 
-  provided via standard input.
-
+- **QUIT** command can be used to terminate the application gracefully when input is provided via standard input.
 Constraints
 -----------
 
-- The toy robot must not fall off the table during movement. This also
-  includes the initial placement of the toy robot.
+- The toy robot must not fall off the table during movement. This also includes the initial placement of the toy robot.
 - Any move that would cause the robot to fall must be ignored.
 
 Installation
@@ -49,13 +45,12 @@ Installation
 
 - Checkout the source and run the folllwing from project's root directory:
 
-    `rake install`
+    rake install
 
 Execution
 ---------
 
 - Run the folllwing from project's root directory:
 
-    `toy_robot "*input_file_path*"`
-
-- *input_file_path* is for reading commands from a file. It is optional.
+    toy_robot "*input_file_path*"
+  - *input_file_path* is for reading commands from a file. It is optional.
