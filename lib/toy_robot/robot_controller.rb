@@ -2,11 +2,11 @@
 # Robot controller class.
 # To process command, control robot movement and display result.
 
-require_relative 'direction'
-require_relative 'model/robot'
-require_relative 'model/table'
-require_relative 'robot_view'
-require_relative 'command'
+require 'toy_robot/direction'
+require 'toy_robot/model/robot'
+require 'toy_robot/model/table'
+require 'toy_robot/robot_view'
+require 'toy_robot/command'
 
 class RobotController
   include Direction, Command

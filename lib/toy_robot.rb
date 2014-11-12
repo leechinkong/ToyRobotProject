@@ -1,9 +1,8 @@
-#!/usr/bin/env ruby
 # Main class for ToyRobot
 
-require_relative 'toy_robot/robot_controller'
+require 'toy_robot/robot_controller'
 
-class ToyRobot
+module ToyRobot
 
   WIDTH = 5
   HEIGHT = 5
@@ -11,7 +10,7 @@ class ToyRobot
   # Run toy robot.
   # = Parameters
   # - +file+:: the input file containing commands
-  def play(file)
+  def ToyRobot.play(file=nil)
     begin
       controller = RobotController.new(WIDTH, HEIGHT)
       unless file.nil?
@@ -27,7 +26,7 @@ class ToyRobot
 
   # Run only when executed directly
   if __FILE__ == $0
-    ToyRobot.new.play(ARGV[0])
+    ToyRobot.play(ARGV[0])
   end
 
 end
