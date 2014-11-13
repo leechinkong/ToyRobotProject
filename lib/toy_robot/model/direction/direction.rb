@@ -1,10 +1,10 @@
 # Direction module.
 # Helper module for RobotController class, where direction constants 
 # and helper methods are defined.
-require 'toy_robot/model/north'
-require 'toy_robot/model/east'
-require 'toy_robot/model/south'
-require 'toy_robot/model/west'
+require 'toy_robot/model/direction/north'
+require 'toy_robot/model/direction/east'
+require 'toy_robot/model/direction/south'
+require 'toy_robot/model/direction/west'
 
 module Direction
 

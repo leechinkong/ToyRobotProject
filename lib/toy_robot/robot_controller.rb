@@ -3,7 +3,7 @@
 # This class is for processing commands, control robot movement
 # and display results.
 
-require 'toy_robot/model/direction'
+require 'toy_robot/model/direction/direction'
 require 'toy_robot/model/robot'
 require 'toy_robot/model/table'
 require 'toy_robot/robot_view'

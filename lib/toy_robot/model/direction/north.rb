@@ -1,6 +1,6 @@
 # North direction class.
 
-require 'toy_robot/model/base_direction'
+require 'toy_robot/model/direction/base_direction'
 
 module Direction
   class North < BaseDirection

@@ -1,32 +1,32 @@
-# West direction class.
+# South direction class.
 
-require 'toy_robot/model/base_direction'
+require 'toy_robot/model/direction/base_direction'
 
 module Direction
-  class West < BaseDirection
+  class South < BaseDirection
 
-    # Make a left turn from west direction.
+    # Make a left turn from south direction.
     # ====== Returns
     # - the new direction after left turn
     def turnLeft
-      return NORTH
+      return EAST
     end
 
-    # Make a right turn from west direction.
+    # Make a right turn from south direction.
     # ====== Returns
     # - the new direction after right turn
     def turnRight
-      return SOUTH
+      return WEST
     end
 
-    # Move horizontally forward from current postion facing west.
+    # Move vertially forward from current postion facing south.
     # ====== Parameters
     # - +x+:: the current x position
     # - +y+:: the current y position
     # ====== Returns
     # - the new x and y position after move
     def move(x, y)
-      return x-1, y
+      return x, y-1
     end
 
   end
