@@ -1,4 +1,5 @@
 # Direction module.
+
 require 'toy_robot/model/direction/north'
 require 'toy_robot/model/direction/east'
 require 'toy_robot/model/direction/south'

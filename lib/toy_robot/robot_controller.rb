@@ -24,6 +24,7 @@ class RobotController
   def initialize(width, height)
     @table = Table.new(width, height)
     @view = RobotView.new
+    @robot = Robot.new(@table)
   end
 
   # Process command.
@@ -39,38 +40,25 @@ class RobotController
       # Find out the type of command, PLACE, LEFT, RIGHT, MOVE or REPORT
       commandConst = Command.validate(command)
       # Only process non-PLACE command when robot is placed
-      unless commandConst != Command::P && @robot.nil?
+      unless commandConst.nil? || (commandConst != Command::P && !@robot.placed)
         case commandConst
         when Command::P
           # Get x and y 
           position = command.scan(/\d+/)
           x = position[0].to_i
           y = position[1].to_i
-          # Validate x and y, make sure x and y is within range
-          if @table.validate(x, y)
-            # Get face, expect only one value to be returned
-            face = command.scan(/#{Direction::N}|#{Direction::E}|#{Direction::S}|#{Direction::W}$/)[0]
-            # Create a Robot instance, if not already created
-            if @robot.nil?
-              @robot = Robot.new(x, y, face, @table)
-            else
-              @robot.update(x, y, face)
-            end
-            return true
-          end
+          face = command.scan(/#{Direction::N}|#{Direction::E}|#{Direction::S}|#{Direction::W}$/)[0]
+          @robot.update(x, y, face)
         when Command::L
           @robot.turnLeft
-          return true
         when Command::R
           @robot.turnRight
-          return true
         when Command::M
           @robot.move
-          return true
         when Command::RP 
-          @view.displayOutput(@robot.x, @robot.y, @robot.face.dir)
-          return true
+          @view.displayOutput(@robot.x, @robot.y, @robot.face)
         end
+        return true
       end
     end
     # Invalid command

@@ -8,7 +8,7 @@ module Direction
     # ====== Returns
     # - the new direction after left turn
     def turnLeft
-      raise NotImplementedError
+      raise NotImplementedError, 'BaseDirection is not intended to be used directly.'
     end
 
     # Make a right turn from current direction.
@@ -16,7 +16,7 @@ module Direction
     # ====== Returns
     # - the new direction after right turn
     def turnRight
-      raise NotImplementedError
+      raise NotImplementedError, 'BaseDirection is not intended to be used directly.'
     end
 
     # Move horizontally forward from current postion.
@@ -27,7 +27,7 @@ module Direction
     # ====== Returns
     # - the new x and y position after move
     def move(x, y)
-      raise NotImplementedError
+      raise NotImplementedError, 'BaseDirection is not intended to be used directly.'
     end
 
   end
