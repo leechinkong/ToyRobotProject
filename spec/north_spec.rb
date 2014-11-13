@@ -1,31 +1,31 @@
 require 'spec_helper'
 
 # Tests for North
-describe North do
+describe Direction::North do
 
   # Create a new instance for each test
   before :each do
-    @north = North.new
+    @north = Direction::North.new
   end
 
   # Test initialize
   describe "#new" do
     it "is an instance of North" do
-      expect(@north).to be_an_instance_of(North)
+      expect(@north).to be_an_instance_of(Direction::North)
     end
   end
 
   # Test turnLeft
   describe "#turnLeft" do
     it "when turning LEFT" do
-      expect(@north.turnLeft).to be_an_instance_of(West)
+      expect(@north.turnLeft).to be_an_instance_of(Direction::West)
     end
   end
 
   # Test turnRight
   describe "#turnRight" do
     it "when turning RIGHT" do
-      expect(@north.turnRight).to be_an_instance_of(East)
+      expect(@north.turnRight).to be_an_instance_of(Direction::East)
     end
   end
 

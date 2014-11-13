@@ -1,17 +1,48 @@
 # Direction module.
 # Helper module for RobotController class, where direction constants 
 # and helper methods are defined.
+require 'toy_robot/model/north'
+require 'toy_robot/model/east'
+require 'toy_robot/model/south'
+require 'toy_robot/model/west'
 
 module Direction
 
-  # Direction NORTH
+  # Direction NORTH string
   N = "NORTH"
-  # Direction EAST
+  # Direction EAST string
   E = "EAST"
-  # Direction SOUTH
+  # Direction SOUTH string
   S = "SOUTH"
-  # Direction WEST
+  # Direction WEST string
   W = "WEST"
+
+  # Direction NORTH object
+  NORTH = North.new
+  # Direction EAST object
+  EAST = East.new
+  # Direction SOUTH object
+  SOUTH = South.new
+  # Direction WEST object
+  WEST = West.new
+
+  # Return a direction object according the direction string.
+  # ====== Parameters
+  # - +dir+:: the direction string
+  # ====== Returns
+  # - a direction object of the direction string
+  def Direction.toDirection(dir)
+    case dir
+    when N
+      return NORTH
+    when E
+      return EAST
+    when S
+      return SOUTH
+    when W
+      return WEST
+    end
+  end
 
   # Make a left turn from current direction.
   # ====== Parameters
