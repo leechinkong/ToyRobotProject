@@ -18,14 +18,14 @@ describe Direction::West do
   # Test turnLeft
   describe "#turnLeft" do
     it "when turning LEFT" do
-      expect(@west.turnLeft).to be_an_instance_of(Direction::North)
+      expect(@west.turnLeft).to be_an_instance_of(Direction::South)
     end
   end
 
   # Test turnRight
   describe "#turnRight" do
     it "when turning RIGHT" do
-      expect(@west.turnRight).to be_an_instance_of(Direction::South)
+      expect(@west.turnRight).to be_an_instance_of(Direction::North)
     end
   end
 

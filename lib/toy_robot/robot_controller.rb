@@ -14,6 +14,8 @@ class RobotController
 
   # The view object to capture input and display output
   attr_accessor:view
+  # The robot object
+  attr_reader:robot
 
   # Initialize table controller.
   # ====== Parameters
@@ -50,27 +52,23 @@ class RobotController
             face = command.scan(/#{Direction::N}|#{Direction::E}|#{Direction::S}|#{Direction::W}$/)[0]
             # Create a Robot instance, if not already created
             if @robot.nil?
-              @robot = Robot.new(x, y, face)
+              @robot = Robot.new(x, y, face, @table)
             else
               @robot.update(x, y, face)
             end
             return true
           end
         when Command::L
-          @robot.updateFace(Direction.turnLeft(@robot.face))
+          @robot.turnLeft
           return true
         when Command::R
-          @robot.updateFace(Direction.turnRight(@robot.face))
+          @robot.turnRight
           return true
         when Command::M
-          x, y = Direction.move(@robot.x, @robot.y, @robot.face)
-          # Make sure the robot does not fall off the table
-          if @table.validate(x, y)
-            @robot.updatePosition(x, y)
-            return true
-          end
+          @robot.move
+          return true
         when Command::RP 
-          @view.displayOutput(@robot.x, @robot.y, @robot.face)
+          @view.displayOutput(@robot.x, @robot.y, @robot.face.dir)
           return true
         end
       end

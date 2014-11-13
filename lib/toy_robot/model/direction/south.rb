@@ -5,6 +5,14 @@ require 'toy_robot/model/direction/base_direction'
 module Direction
   class South < BaseDirection
 
+    # String representation of the direction
+    attr_reader:dir
+
+    # Initialize the direction with a string representation
+    def initialize
+      @dir = S
+    end
+    
     # Make a left turn from south direction.
     # ====== Returns
     # - the new direction after left turn

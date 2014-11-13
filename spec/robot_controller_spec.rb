@@ -72,33 +72,51 @@ describe RobotController do
       # Place the robot at the NORTH-EAST edge of the table first
       expect(@controller.processCommand("#{Command::P} 4,4,#{Direction::N}")).to eq(true)
       # Test when subsequent MOVE command will cause the robot to fall off the NORTH edge
-      expect(@controller.processCommand("#{Command::M}")).to eq(false)
+      expect(@controller.processCommand(Command::M)).to eq(true)
+      expect(@controller.robot.x).to eq(4)
+      expect(@controller.robot.y).to eq(4)
+      expect(@controller.robot.face).to eq(Direction::NORTH)
       # Turn the robot to face EAST
       expect(@controller.processCommand("#{Command::R}")).to eq(true)
       # Test when subsequent MOVE command will cause the robot to fall off the EAST edge
-      expect(@controller.processCommand("#{Command::M}")).to eq(false)
+      expect(@controller.processCommand("#{Command::M}")).to eq(true)
+      expect(@controller.robot.x).to eq(4)
+      expect(@controller.robot.y).to eq(4)
+      expect(@controller.robot.face).to eq(Direction::EAST)
     end
     it "when robot is at NORTH-WEST edge and MOVE command is invalid" do
       # Place the robot at the NORTH-WEST edge of the table first
       expect(@controller.processCommand("#{Command::P} 0,4,#{Direction::N}")).to eq(true)
       # Test when subsequent MOVE command will cause the robot to fall off the NORTH edge
-      expect(@controller.processCommand("#{Command::M}")).to eq(false)
+      expect(@controller.processCommand("#{Command::M}")).to eq(true)
+      expect(@controller.robot.x).to eq(0)
+      expect(@controller.robot.y).to eq(4)
+      expect(@controller.robot.face).to eq(Direction::NORTH)
       # Turn the robot to face WEST
       expect(@controller.processCommand("#{Command::L}")).to eq(true)
       # Test when subsequent MOVE command will cause the robot to fall off the WEST edge
-      expect(@controller.processCommand("#{Command::M}")).to eq(false)
+      expect(@controller.processCommand("#{Command::M}")).to eq(true)
+      expect(@controller.robot.x).to eq(0)
+      expect(@controller.robot.y).to eq(4)
+      expect(@controller.robot.face).to eq(Direction::WEST)
     end
     it "when robot is at SOUTH-WEST edge and MOVE command is invalid" do
       # Place the robot at the SOUTH-WEST edge of the table
       expect(@controller.processCommand("#{Command::P} 0,0,#{Direction::N}")).to eq(true)
       # Turn the robot to face WEST
-      expect(@controller.processCommand("#{Command::L}")).to eq(true)
+      expect(@controller.processCommand(Command::L)).to eq(true)
       # Test when subsequent MOVE command will cause the robot to fall off the WEST edge
-      expect(@controller.processCommand("#{Command::M}")).to eq(false)
+      expect(@controller.processCommand(Command::M)).to eq(true)
+      expect(@controller.robot.x).to eq(0)
+      expect(@controller.robot.y).to eq(0)
+      expect(@controller.robot.face).to eq(Direction::WEST)
       # Turn the robot to face SOUTH
       expect(@controller.processCommand("#{Command::L}")).to eq(true)
       # Test when subsequent MOVE command will cause the robot to fall off the SOUTH edge
-      expect(@controller.processCommand("#{Command::M}")).to eq(false)
+      expect(@controller.processCommand("#{Command::M}")).to eq(true)
+      expect(@controller.robot.x).to eq(0)
+      expect(@controller.robot.y).to eq(0)
+      expect(@controller.robot.face).to eq(Direction::SOUTH)
     end
     it "when robot is at SOUTH-EAST edge and MOVE command is invalid" do
       # Place the robot at the SOUTH-EAST edge of the table
@@ -106,11 +124,17 @@ describe RobotController do
       # Turn the robot to face EAST
       expect(@controller.processCommand("#{Command::R}")).to eq(true)
       # Test when subsequent MOVE command will cause the robot to fall off the EAST edge
-      expect(@controller.processCommand("#{Command::M}")).to eq(false)
+      expect(@controller.processCommand("#{Command::M}")).to eq(true)
+      expect(@controller.robot.x).to eq(4)
+      expect(@controller.robot.y).to eq(0)
+      expect(@controller.robot.face).to eq(Direction::EAST)
       # Turn the robot to face SOUTH
       expect(@controller.processCommand("#{Command::R}")).to eq(true)
       # Test when subsequent MOVE command will cause the robot to fall off the SOUTH edge
-      expect(@controller.processCommand("#{Command::M}")).to eq(false)
+      expect(@controller.processCommand("#{Command::M}")).to eq(true)
+      expect(@controller.robot.x).to eq(4)
+      expect(@controller.robot.y).to eq(0)
+      expect(@controller.robot.face).to eq(Direction::SOUTH)
     end
     it "when robot is at NORTH-EAST edge and MOVE command is valid" do
       # Place the robot at the NORTH-EAST edge of the table first

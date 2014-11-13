@@ -19,7 +19,7 @@ module Direction
       raise NotImplementedError
     end
 
-    # Move horizontally forward from current postion facing current direction.
+    # Move horizontally forward from current postion.
     # To be implemented by sub classes.
     # ====== Parameters
     # - +x+:: the current x position

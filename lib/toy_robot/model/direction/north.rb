@@ -5,6 +5,14 @@ require 'toy_robot/model/direction/base_direction'
 module Direction
   class North < BaseDirection
 
+    # String representation of the direction
+    attr_reader:dir
+
+    # Initialize the direction with a string representation
+    def initialize
+      @dir = N
+    end
+    
     # Make a left turn from north direction.
     # ====== Returns
     # - the new direction after left turn
