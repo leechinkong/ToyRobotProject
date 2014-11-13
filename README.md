@@ -53,6 +53,17 @@ Execution
   - toy_robot *[input_file_path]*
   - *[input_file_path]* is for reading input commands from a file. It is optional.
 
+Test
+----
+- Run the folllwing from the project root directory to execute the tests:
+  - rake spec
+
+Documentation
+-------------
+- Run the folllwing from the project root directory to generate the documentation:
+  - rake rdoc
+- The generated documentation will be in doc/rdoc folder
+
 License
 ---------
 - This project is licensed under the MIT license, a copy of which can be found in the LICENSE file.
