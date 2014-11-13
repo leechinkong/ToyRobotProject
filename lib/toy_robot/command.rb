@@ -1,12 +1,18 @@
 # Command module.
-# To store command constants and validate commands.
+# Helper module for RobotController class, where command constants 
+# and helper methods are defined.
 
 module Command
 
+  # Command PLACE
   P = "PLACE"
+  # Command MOVE
   M = "MOVE"
+  # Command LEFT
   L = "LEFT"
+  # Command RIGHT
   R = "RIGHT"
+  # Command REPORT
   RP = "REPORT"
 
   # Validate PLACE command, case sensitive.

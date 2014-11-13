@@ -15,8 +15,10 @@ class Robot
   # - +y+:: the y position on the table
   # - +face+:: the direction the robot is facing
   def initialize(x, y, face)
+    # raise error for invalid arguments
     raise ArgumentError, 'Robot x position is invalid.' unless x.is_a?(Numeric)
     raise ArgumentError, 'Robot y position is invalid.' unless y.is_a?(Numeric)
+
     @x = x
     @y = y
     @face = face

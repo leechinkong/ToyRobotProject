@@ -1,6 +1,7 @@
-#!/usr/bin/env ruby
 # Robot controller class.
-# To process command, control robot movement and display result.
+# The serves as the Controller class of the MVC design pattern. 
+# This class is for processing commands, control robot movement
+# and display results.
 
 require 'toy_robot/direction'
 require 'toy_robot/model/robot'
@@ -11,6 +12,7 @@ require 'toy_robot/command'
 class RobotController
   include Direction, Command
 
+  # The view object to capture input and display output
   attr_accessor:view
 
   # Initialize table controller.

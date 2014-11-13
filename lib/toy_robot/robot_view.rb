@@ -1,4 +1,9 @@
-# Robot view class
+# Robot view class.
+# The purpose of this class is to capture input and display output as is.
+# This class serves as the View of MVC design pattern. 
+# It does not include any logic to manipulate the data.
+# It can be replaced with a UI at a later stage, with no changes
+# to the Controller or Model classes.
 
 class RobotView
 
@@ -23,4 +28,5 @@ class RobotView
   def captureInput
     return gets.chomp
   end
+
 end

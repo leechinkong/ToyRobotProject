@@ -1,4 +1,6 @@
-# Direction module
+# Direction module.
+# Helper module for RobotController class, where direction constants 
+# and helper methods are defined.
 
 module Direction
 

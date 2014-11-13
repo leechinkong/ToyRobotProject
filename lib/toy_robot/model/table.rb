@@ -12,8 +12,10 @@ class Table
   # - +width+:: the width of the table
   # - +height+:: the height of the table
   def initialize(width, height)
+    # raise error for invalid arguments
     raise ArgumentError, 'Table width is invalid.' unless (width.is_a?(Numeric) && width > 0)
     raise ArgumentError, 'Table height is invalid.' unless (height.is_a?(Numeric) && height > 0)
+    
     @width = width
     @height = height
   end
