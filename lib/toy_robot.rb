@@ -14,7 +14,7 @@ module ToyRobot
 
   # Run the toy robot simulator.
   # Read and process input commands from file or standard input
-  # = Parameters
+  # ====== Parameters
   # - +file+:: the input file containing commands
   def ToyRobot.play(file=nil)
     begin
@@ -22,11 +22,11 @@ module ToyRobot
       controller = RobotController.new(WIDTH, HEIGHT)
       unless file.nil?
         # Read commands from file
-        controller.readFromFile(file)
+        controller.readCommands(file)
       else
-        # Read commands from stdin
+        # Request input commands
         puts "Enter commands to control your toy robot (enter 'QUIT' to stop):"
-        controller.readFromStdin
+        controller.requestCommands
       end
     rescue => error
       # Display any error

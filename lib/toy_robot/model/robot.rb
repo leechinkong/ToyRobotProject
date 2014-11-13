@@ -10,7 +10,7 @@ class Robot
   attr_accessor:face
 
   # Initialize the robot with x and y position and direction the robos is facing.
-  # = Parameters
+  # ====== Parameters
   # - +x+:: the x position on the table
   # - +y+:: the y position on the table
   # - +face+:: the direction the robot is facing

@@ -14,10 +14,12 @@ module Command
   R = "RIGHT"
   # Command REPORT
   RP = "REPORT"
+  # Command QUIT
+  Q = "QUIT"
 
   # Validate PLACE command, case sensitive.
-  # = Parameters
-  # - +command+:: the command to validate
+  # ====== Parameters
+  # - +command+:: the PLACE command to validate
   def Command.validatePlace(command)
     if command =~ /^#{Command::P}\s\d+,\d+,#{Direction::N}|#{Direction::E}|#{Direction::S}|#{Direction::W}$/
       return true
@@ -26,7 +28,7 @@ module Command
   end
 
   # Validate other command, case sensitive.
-  # = Parameters
+  # ====== Parameters
   # - +command+:: the command to validate
   def Command.validate(command)
     if command =~ /^#{Command::M}|#{Command::L}|#{Command::R}|#{Command::RP}$/

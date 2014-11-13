@@ -20,18 +20,15 @@ describe RobotController do
     it "when command is nil" do
       expect(@controller.processCommand(nil)).to eq(false)
     end
-
     it "when command is not the expected first command" do
       expect(@controller.processCommand("#{Command::M}")).to eq(false)
       expect(@controller.processCommand("#{Command::L}")).to eq(false)
       expect(@controller.processCommand("#{Command::R}")).to eq(false)
       expect(@controller.processCommand("#{Command::RP}")).to eq(false)
     end
-
     it "when command is a valid first command" do
       expect(@controller.processCommand("#{Command::P} 0,0,#{Direction::N}")).to eq(true)
     end
-
     it "when command is an invalid subsequent command" do
       # Place the robot on the table first
       expect(@controller.processCommand("#{Command::P} 0,0,#{Direction::N}")).to eq(true)
@@ -39,7 +36,6 @@ describe RobotController do
       expect(@controller.processCommand(nil)).to eq(false)
       expect(@controller.processCommand("UNKNOWN")).to eq(false)
     end
-
     it "when command is a valid subsequent command" do
       # Place the robot on the table first
       expect(@controller.processCommand("#{Command::P} 0,0,#{Direction::N}")).to eq(true)
@@ -50,7 +46,6 @@ describe RobotController do
       expect(@controller.processCommand("#{Command::R}")).to eq(true)
       expect(@controller.processCommand("#{Command::RP}")).to eq(true)
     end
-
     it "when command is mixed or lowercases" do
       # Place the robot on the table first
       expect(@controller.processCommand("#{Command::P} 0,0,#{Direction::N}")).to eq(true)
@@ -61,21 +56,18 @@ describe RobotController do
       expect(@controller.processCommand("Right")).to eq(true)
       expect(@controller.processCommand("report")).to eq(true)
     end
-
     it "when PLACE command has invalid x and y" do
       # Test when x and y is greater than the table dimension
       expect(@controller.processCommand("#{Command::P} 5,5,#{Direction::N}")).to eq(false) 
       # Test when x and y is nagative value     
       expect(@controller.processCommand("#{Command::P} -1,-1,#{Direction::N}")).to eq(false)     
     end
-
     it "when PLACE command has valid x and y" do
       expect(@controller.processCommand("#{Command::P} 0,4,#{Direction::N}")).to eq(true)     
       expect(@controller.processCommand("#{Command::P} 4,0,#{Direction::N}")).to eq(true)  
       expect(@controller.processCommand("#{Command::P} 2,2,#{Direction::N}")).to eq(true)     
       expect(@controller.processCommand("#{Command::P} 4,4,#{Direction::N}")).to eq(true)     
     end
-
     it "when robot is at NORTH-EAST edge and MOVE command is invalid" do
       # Place the robot at the NORTH-EAST edge of the table first
       expect(@controller.processCommand("#{Command::P} 4,4,#{Direction::N}")).to eq(true)
@@ -86,7 +78,6 @@ describe RobotController do
       # Test when subsequent MOVE command will cause the robot to fall off the EAST edge
       expect(@controller.processCommand("#{Command::M}")).to eq(false)
     end
-
     it "when robot is at NORTH-WEST edge and MOVE command is invalid" do
       # Place the robot at the NORTH-WEST edge of the table first
       expect(@controller.processCommand("#{Command::P} 0,4,#{Direction::N}")).to eq(true)
@@ -97,7 +88,6 @@ describe RobotController do
       # Test when subsequent MOVE command will cause the robot to fall off the WEST edge
       expect(@controller.processCommand("#{Command::M}")).to eq(false)
     end
-
     it "when robot is at SOUTH-WEST edge and MOVE command is invalid" do
       # Place the robot at the SOUTH-WEST edge of the table
       expect(@controller.processCommand("#{Command::P} 0,0,#{Direction::N}")).to eq(true)
@@ -110,7 +100,6 @@ describe RobotController do
       # Test when subsequent MOVE command will cause the robot to fall off the SOUTH edge
       expect(@controller.processCommand("#{Command::M}")).to eq(false)
     end
-
     it "when robot is at SOUTH-EAST edge and MOVE command is invalid" do
       # Place the robot at the SOUTH-EAST edge of the table
       expect(@controller.processCommand("#{Command::P} 4,0,#{Direction::N}")).to eq(true)
@@ -123,7 +112,6 @@ describe RobotController do
       # Test when subsequent MOVE command will cause the robot to fall off the SOUTH edge
       expect(@controller.processCommand("#{Command::M}")).to eq(false)
     end
-
     it "when robot is at NORTH-EAST edge and MOVE command is valid" do
       # Place the robot at the NORTH-EAST edge of the table first
       expect(@controller.processCommand("#{Command::P} 4,4,#{Direction::N}")).to eq(true)
@@ -139,7 +127,6 @@ describe RobotController do
       # Test when subsequent MOVE command moves the robot 1 unit towards SOUTH
       expect(@controller.processCommand("#{Command::M}")).to eq(true)
     end
-
     it "when robot is at NORTH-WEST edge and MOVE command is valid" do
       # Place the robot at the NORTH-WEST edge of the table first
       expect(@controller.processCommand("#{Command::P} 0,4,#{Direction::N}")).to eq(true)
@@ -155,7 +142,6 @@ describe RobotController do
       # Test when subsequent MOVE command moves the robot 1 unit towards SOUTH
       expect(@controller.processCommand("#{Command::M}")).to eq(true)
     end
-
     it "when robot is at SOUTH-WEST edge and MOVE command is valid" do
       # Place the robot at the SOUTH-WEST edge of the table
       expect(@controller.processCommand("#{Command::P} 0,0,#{Direction::N}")).to eq(true)
@@ -168,7 +154,6 @@ describe RobotController do
       # Test when subsequent MOVE command moves the robot 1 unit towards EAST
       expect(@controller.processCommand("#{Command::M}")).to eq(true)
     end
-
     it "when robot is at SOUTH-EAST edge and MOVE command is valid" do
       # Place the robot at the SOUTH-EAST edge of the table
       expect(@controller.processCommand("#{Command::P} 4,0,#{Direction::N}")).to eq(true)
@@ -181,7 +166,6 @@ describe RobotController do
       # Test when subsequent MOVE command moves the robot 1 unit towards WEST
       expect(@controller.processCommand("#{Command::M}")).to eq(true)
     end
-
     it "when REPORT is valid" do
       # Place the robot at the NORTH-EAST edge of the table
       expect(@controller.processCommand("#{Command::P} 0,0,#{Direction::N}")).to eq(true)
@@ -191,33 +175,33 @@ describe RobotController do
     end
   end
 
-    # Test readFromStdin
-  describe "#readFromStdin" do
+    # Test requestCommands
+  describe "#requestCommands" do
     it "when PLACE, MOVE, REPORT are called" do
-      # Commands to write to stdin
+      # Commands to return from captureInput
       place = "#{Command::P} 0,0,#{Direction::N}"
       move = "#{Command::M}"
       report = "#{Command::RP}"
-      # Expect RobotView.captureInput to be called to read command from stdin
+      # Expect RobotView.captureInput to be called and return expected commands
       mockView = RobotView.new
-      expect(mockView).to receive(:captureInput).and_return(place, move, report, "QUIT")
+      expect(mockView).to receive(:captureInput).and_return(place, move, report, "#{Command::Q}")
       # Expect RobotController.processCommand to be called to process command
       @controller.view = mockView
       expect(@controller).to receive(:processCommand).with(place).exactly(1).times
       expect(@controller).to receive(:processCommand).with(move).exactly(1).times
       expect(@controller).to receive(:processCommand).with(report).exactly(1).times
-      @controller.readFromStdin
+      @controller.requestCommands
     end
     it "when PLACE, LEFT, RIGHT, MOVE, REPORT are called" do
-      # Commands to write to stdin
+      # Commands to return from captureInput
       place = "#{Command::P} 0,0,#{Direction::N}"
       left = "#{Command::L}"
       right = "#{Command::R}"
       move = "#{Command::M}"
       report = "#{Command::RP}"
-      # Expect RobotView.captureInput to be called to read command from stdin
+      # Expect RobotView.captureInput to be called and return expected commands
       mockView = RobotView.new
-      expect(mockView).to receive(:captureInput).and_return(place, left, right, move, report, "QUIT")
+      expect(mockView).to receive(:captureInput).and_return(place, left, right, move, report, "#{Command::Q}")
       # Expect RobotController.processCommand to be called to process command
       @controller.view = mockView
       expect(@controller).to receive(:processCommand).with(place).exactly(1).times
@@ -225,22 +209,22 @@ describe RobotController do
       expect(@controller).to receive(:processCommand).with(right).exactly(1).times
       expect(@controller).to receive(:processCommand).with(move).exactly(1).times
       expect(@controller).to receive(:processCommand).with(report).exactly(1).times
-      @controller.readFromStdin
+      @controller.requestCommands
     end
   end
 
-    # Test readFromFile
-  describe "#readFromFile" do
+    # Test readCommands
+  describe "#readCommands" do
     it "when file is nil" do
       # Do not expect RobotController.processCommand to be called
       expect(@controller).not_to receive(:processCommand)
-      @controller.readFromFile(nil)
+      @controller.readCommands(nil)
     end
     it "when file is not found" do
-      expect{@controller.readFromFile("unknown file")}.to raise_error(IOError)
+      expect{@controller.readCommands("unknown file")}.to raise_error(IOError)
     end
     it "when file is valid" do
-      @controller.readFromFile(File.join(File.dirname(__FILE__), "/data/test_data.txt"))
+      @controller.readCommands(File.join(File.dirname(__FILE__), "/data/test_data.txt"))
       expect(@controller.view).to receive(:displayOutput).with(2, 2, Direction::S)
       expect(@controller.processCommand("#{Command::RP}")).to eq(true)
     end
@@ -262,7 +246,7 @@ describe RobotController do
       rescue => error
         raise IOError, "Failed to read input file:  #{error}"
       end
-      @controller.readFromFile(File.join(File.dirname(__FILE__), "/data/test_data.txt"))
+      @controller.readCommands(File.join(File.dirname(__FILE__), "/data/test_data.txt"))
     end
   end
 

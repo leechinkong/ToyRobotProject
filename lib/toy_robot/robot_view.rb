@@ -9,7 +9,7 @@ class RobotView
 
   # Display input parameters as is to stdout.
   # No validataion of the parameters are needed.
-  # = Parameters
+  # ====== Parameters
   # - +x+:: the x value
   # - +y+:: the y value
   # - +face+:: the face value
@@ -23,7 +23,7 @@ class RobotView
   end
 
   # Capture input in stdin.
-  # = Returns
+  # ====== Returns
   # - Return a line captured from stdin to caller.
   def captureInput
     return gets.chomp

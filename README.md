@@ -42,9 +42,9 @@ Constraints
 Requirements
 ------------
 - Ruby 2.1+
-- RSpec
-- Bundler
-- Rake
+- RSpec 3.1+
+- Bundler 1.7+
+- Rake 10.1+
 
 Installation
 ------------
@@ -55,7 +55,7 @@ Execution
 ---------
 - Run the folllwing from project's root directory:
   - toy_robot *[input_file_path]*
-  - [input_file_path]* is for reading commands from a file. It is optional.
+  - *[input_file_path]* is for reading input commands from a file. It is optional.
 
 Tests
 ---------

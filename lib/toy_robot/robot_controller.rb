@@ -16,7 +16,7 @@ class RobotController
   attr_accessor:view
 
   # Initialize table controller.
-  # = Parameters
+  # ====== Parameters
   # - +width+:: the width of the table
   # - +height+:: the height of the table
   def initialize(width, height)
@@ -25,9 +25,9 @@ class RobotController
   end
 
   # Process command.
-  # = Parameters
+  # ====== Parameters
   # - +command+:: the command to control robot
-  # = Returns
+  # ====== Returns
   # - true when command is processed successfully
   def processCommand(command)
     # Check if the command is nil
@@ -87,9 +87,9 @@ class RobotController
   end
 
   # Read commands from file.
-  # = Parameters
+  # ====== Parameters
   # - +file+:: the input file containing commands to process
-  def readFromFile(file)
+  def readCommands(file)
     unless file.nil?
       # Read from file
       begin
@@ -106,14 +106,14 @@ class RobotController
     end
   end
 
-  # Read commands from stdin.
-  def readFromStdin
-    # Read from stdin until QUIT is read
+  # Request input commands from view, until QUIT is detected.
+  def requestCommands
+    # Request input in a loop until QUIT is read
     quit = false
     until quit do
       input = @view.captureInput
       # Check if input is QUIT
-      quit = input =~ /^QUIT$/i
+      quit = input =~ /^#{Command::Q}$/i
       unless quit
         processCommand(input)
       end

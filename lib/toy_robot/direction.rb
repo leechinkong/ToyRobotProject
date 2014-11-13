@@ -14,9 +14,9 @@ module Direction
   W = "WEST"
 
   # Make a left turn from current direction.
-  # = Parameters
+  # ====== Parameters
   # - +dir+:: the current direction
-  # = Returns
+  # ====== Returns
   # - the new direction after left turn
   def Direction.turnLeft(dir)
     if dir == N
@@ -34,9 +34,9 @@ module Direction
   end
 
   # Make a right turn from current direction.
-  # = Parameters
+  # ====== Parameters
   # - +dir+:: the current direction
-  # = Returns
+  # ====== Returns
   # - the new direction after right turn
   def Direction.turnRight(dir)
     if dir == N
@@ -55,11 +55,11 @@ module Direction
 
   # Move forward from current postion.
   # The move could be vertially or horizontally depending on the current direction.
-  # = Parameters
+  # ====== Parameters
   # - +x+:: the current x position
   # - +y+:: the current y position
   # - +dir+:: the current direction
-  # = Returns
+  # ====== Returns
   # - the new x and y position after move
   def Direction.move(x, y, dir)
     if dir == N
