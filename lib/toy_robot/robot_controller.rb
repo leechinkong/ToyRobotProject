@@ -32,53 +32,49 @@ class RobotController
   def processCommand(command)
     # Check if the command is nil
     unless command.nil?
-      # convert command to all uppercase
+      # Convert command to all uppercase
       command = command.upcase
-
-      # Check if command is a valid PLACE
-      if Command.validatePlace(command)
-        # Get x and y 
-        placement = command.scan(/\d+/)
-        x = placement[0].to_i
-        y = placement[1].to_i
-
-        # Validate x and y, make sure x and y is within range
-        if @table.validate(x, y)
-          # Get face, expect only one value to be returned
-          face = command.scan(/#{Direction::N}|#{Direction::E}|#{Direction::S}|#{Direction::W}$/)[0]
-          # Create a Robot instance, if not already created
-          if @robot.nil?
-            @robot = Robot.new(x, y, face)
-          else
-            @robot.update(x, y, face)
-          end
-          return true
-        end
-      # Check if the robot is placed
-      elsif @robot != nil
-        # Check if command is a valid subsequent command
-        if Command.validate(command)
-          if command == "#{Command::L}"
-            @robot.updateFace(Direction.turnLeft(@robot.face))
-            return true
-          elsif command == "#{Command::R}"
-            @robot.updateFace(Direction.turnRight(@robot.face))
-            return true
-          elsif command == "#{Command::M}"
-            x, y = Direction.move(@robot.x, @robot.y, @robot.face)
-            # Make sure the robot does not fall off the table
-            if @table.validate(x, y)
-              @robot.updatePosition(x, y)
-              return true
+      # Find out the type of command, PLACE, LEFT, RIGHT, MOVE or REPORT
+      commandConst = Command.validate(command)
+      # Only process non-PLACE command when robot is placed
+      unless commandConst != Command::P && @robot.nil?
+        case commandConst
+        when Command::P
+          # Get x and y 
+          position = command.scan(/\d+/)
+          x = position[0].to_i
+          y = position[1].to_i
+          # Validate x and y, make sure x and y is within range
+          if @table.validate(x, y)
+            # Get face, expect only one value to be returned
+            face = command.scan(/#{Direction::N}|#{Direction::E}|#{Direction::S}|#{Direction::W}$/)[0]
+            # Create a Robot instance, if not already created
+            if @robot.nil?
+              @robot = Robot.new(x, y, face)
+            else
+              @robot.update(x, y, face)
             end
-          elsif command == "#{Command::RP}"
-            @view.displayOutput(@robot.x, @robot.y, @robot.face)
             return true
           end
+        when Command::L
+          @robot.updateFace(Direction.turnLeft(@robot.face))
+          return true
+        when Command::R
+          @robot.updateFace(Direction.turnRight(@robot.face))
+          return true
+        when Command::M
+          x, y = Direction.move(@robot.x, @robot.y, @robot.face)
+          # Make sure the robot does not fall off the table
+          if @table.validate(x, y)
+            @robot.updatePosition(x, y)
+            return true
+          end
+        when Command::RP 
+          @view.displayOutput(@robot.x, @robot.y, @robot.face)
+          return true
         end
       end
     end
-
     # Invalid command
     return false
   end

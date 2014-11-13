@@ -17,24 +17,19 @@ module Command
   # Command QUIT
   Q = "QUIT"
 
-  # Validate PLACE command, case sensitive.
-  # ====== Parameters
-  # - +command+:: the PLACE command to validate
-  def Command.validatePlace(command)
-    if command =~ /^#{Command::P}\s\d+,\d+,#{Direction::N}|#{Direction::E}|#{Direction::S}|#{Direction::W}$/
-      return true
-    end
-    return false
-  end
-
-  # Validate other command, case sensitive.
+  # Validate all commands, case sensitive.
   # ====== Parameters
   # - +command+:: the command to validate
+  # ====== Returns
+  # the command constant
   def Command.validate(command)
-    if command =~ /^#{Command::M}|#{Command::L}|#{Command::R}|#{Command::RP}$/
-      return true
+    unless command.nil?
+      if command =~ /^#{Command::P}\s\d+,\d+,#{Direction::N}|#{Direction::E}|#{Direction::S}|#{Direction::W}$/
+        return Command::P
+      else
+        return command.scan(/^#{Command::M}|#{Command::L}|#{Command::R}|#{Command::RP}$/)[0]
+      end
     end
-    return false
   end
 
 end
