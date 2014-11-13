@@ -27,11 +27,11 @@ Constraints
 
 Implementation Details
 ----------------------
-The entry point of the application is ToyRobot module, which does not contain any logic, except to determine if the inputs are from a file or from standard input, based on the command line argument. 
+The entry point of the application is the ToyRobot module. ToyRobot does not contain any logic other than to determine if the inputs are from a file or from standard input based on the command line argument. 
 
-The application is built based on the MVC design pattern. The RobotController class represents the Controller and it is responsible for supplying data to the Model components and querying data from Model components for View component to display. The Model components, the Table class, the Direction classes and the Robot class are for data manipulation and management. The View component, the RobotView class captures commands from standard input and display outputs when requested.
+The application is built based on the MVC design pattern. The RobotController class represents the Controller and it is responsible for supplying data to and querying data from the Model components for the View component to display. The Model components, the Table class, the Direction classes and the Robot class are for data manipulation and management. The View component, the RobotView class, captures commands from standard input and displays output when requested.
 
-The reason for choosing MVC design pattern is for code reusability. For example, the View component can be enhanced to include a GUI with no changes to the Controller or Model components required. The Model components can also be extended to persist to database without updating other components.
+The reason for choosing MVC design pattern is for code reusability. For example, the View component can be enhanced to include a GUI with no changes to the Controller or Model components as required. The Model components can also be extended to persist data to a database without updating other components.
 
 The Direction classes (North, East, South, West) are within the Direction module and inherit the BaseDirection class. If a new direction, for example a NORTH-EAST direction is needed to enable the robot to move diagonally, a new Direction subclass can be implemented easily without impacting the implementation of the existing Direction classes.
 
@@ -44,19 +44,14 @@ Requirements
 
 Installation
 ------------
-- Checkout the source run the folllwing from project's root directory:
+- Check out the source and run the following from the project root directory:
   - rake install
 
 Execution
 ---------
-- Run the folllwing from project's root directory:
+- Run the folllwing from the project root directory:
   - toy_robot *[input_file_path]*
   - *[input_file_path]* is for reading input commands from a file. It is optional.
-
-Tests
----------
-- Run the folllwing from project's root directory:
-  - rake spec
 
 License
 ---------
