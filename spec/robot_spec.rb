@@ -25,4 +25,51 @@ describe Robot do
     end
   end
 
+  # Test update
+  describe "#update" do
+    it "when x, y and face is not valid" do
+      robot = Robot.new(0,0,Direction::N)
+      expect{robot.update("",0,Direction::N)}.to raise_error(ArgumentError)
+      expect{robot.update(0,"",Direction::N)}.to raise_error(ArgumentError)
+      expect{robot.update("","",Direction::N)}.to raise_error(ArgumentError)
+      expect{robot.update(0,0,nil)}.to raise_error(ArgumentError)
+    end
+    it "when x, y and face is valid" do
+      robot = Robot.new(0,0,Direction::N)
+      expect{robot.update(1,1,Direction::E)}.not_to raise_error
+      expect(robot.x).to eq(1)
+      expect(robot.y).to eq(1)
+      expect(robot.face).to eq(Direction::E)
+    end
+  end
+
+  # Test updatePosition
+  describe "#updatePosition" do
+    it "when x and y is not numeric" do
+      robot = Robot.new(0,0,Direction::N)
+      expect{robot.updatePosition("",0)}.to raise_error(ArgumentError)
+      expect{robot.updatePosition(0,"")}.to raise_error(ArgumentError)
+      expect{robot.updatePosition("","")}.to raise_error(ArgumentError)
+    end
+    it "when x and y is valid" do
+      robot = Robot.new(0,0,Direction::N)
+      expect{robot.updatePosition(1,1)}.not_to raise_error
+      expect(robot.x).to eq(1)
+      expect(robot.y).to eq(1)
+    end
+  end
+
+  # Test updateFace
+  describe "#updateFace" do
+    it "when face is not provided" do
+      robot = Robot.new(0,0,Direction::N)
+      expect{robot.updateFace(nil)}.to raise_error(ArgumentError)
+    end
+    it "when face is valid" do
+      robot = Robot.new(0,0,Direction::N)
+      expect{robot.updateFace(Direction::E)}.not_to raise_error
+      expect(robot.face).to eq(Direction::E)
+    end
+  end
+
 end

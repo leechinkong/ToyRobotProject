@@ -50,9 +50,7 @@ class RobotController
           if @robot.nil?
             @robot = Robot.new(x, y, face)
           else
-            @robot.x = x
-            @robot.y = y
-            @robot.face = face
+            @robot.update(x, y, face)
           end
           return true
         end
@@ -61,17 +59,16 @@ class RobotController
         # Check if command is a valid subsequent command
         if Command.validate(command)
           if command == "#{Command::L}"
-            @robot.face = Direction.turnLeft(@robot.face)
+            @robot.updateFace(Direction.turnLeft(@robot.face))
             return true
           elsif command == "#{Command::R}"
-            @robot.face = Direction.turnRight(@robot.face)
+            @robot.updateFace(Direction.turnRight(@robot.face))
             return true
           elsif command == "#{Command::M}"
             x, y = Direction.move(@robot.x, @robot.y, @robot.face)
             # Make sure the robot does not fall off the table
             if @table.validate(x, y)
-              @robot.x = x
-              @robot.y = y
+              @robot.updatePosition(x, y)
               return true
             end
           elsif command == "#{Command::RP}"
