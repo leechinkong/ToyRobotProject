@@ -3,62 +3,22 @@ require 'spec_helper'
 # Tests for Direction
 describe Direction do
 
-  UNKNOWN = "UNKNOWN"
-
-  # Test turnLeft
-  describe "#turnLeft" do
-    it "when facing NORTH" do
-      expect(Direction.turnLeft(Direction::N)).to eq(Direction::W)
+  # Test toDirection
+  describe "#toDirection" do
+    it "when direction string is NORTH" do
+      expect(Direction.toDirection(Direction::N)).to be_an_instance_of(North)
     end
-    it "when facing EAST" do
-      expect(Direction.turnLeft(Direction::E)).to eq(Direction::N)
+    it "when direction string is EAST" do
+      expect(Direction.toDirection(Direction::E)).to be_an_instance_of(East)
     end
-    it "when facing SOUTH" do
-      expect(Direction.turnLeft(Direction::S)).to eq(Direction::E)
+    it "when direction string is SOUTH" do
+      expect(Direction.toDirection(Direction::S)).to be_an_instance_of(South)
     end
-    it "when facing WEST" do
-      expect(Direction.turnLeft(Direction::W)).to eq(Direction::S)
+    it "when direction string is WEST" do
+      expect(Direction.toDirection(Direction::W)).to be_an_instance_of(West)
     end
-    it "when current direction is unknown" do
-      expect(Direction.turnLeft(UNKNOWN)).to eq(UNKNOWN)
-    end
-  end
-
-  # Test turnRight
-  describe "#turnRight" do
-    it "when facing NORTH" do
-      expect(Direction.turnRight(Direction::N)).to eq(Direction::E)
-    end
-    it "when facing EAST" do
-      expect(Direction.turnRight(Direction::E)).to eq(Direction::S)
-    end
-    it "when facing SOUTH" do
-      expect(Direction.turnRight(Direction::S)).to eq(Direction::W)
-    end
-    it "when facing WEST" do
-      expect(Direction.turnRight(Direction::W)).to eq(Direction::N)
-    end
-    it "when current direction is unknown" do
-      expect(Direction.turnRight(UNKNOWN)).to eq(UNKNOWN)
-    end
-  end
-
-  # Test move
-  describe "#move" do
-    it "when facing NORTH" do
-      expect(Direction.move(0,0,Direction::N)).to eq([0,1])
-    end
-    it "when facing EAST" do
-      expect(Direction.move(0,0,Direction::E)).to eq([1,0])
-    end
-    it "when facing SOUTH" do
-      expect(Direction.move(0,0,Direction::S)).to eq([0,-1])
-    end
-    it "when facing WEST" do
-      expect(Direction.move(0,0,Direction::W)).to eq([-1,0])
-    end
-    it "when current direction is unknown" do
-      expect(Direction.move(0,0,UNKNOWN)).to eq([0,0])
+    it "when direction string is UNKNOWN" do
+      expect(Direction.toDirection("UNKNOWN")).to eq(nil)
     end
   end
 
